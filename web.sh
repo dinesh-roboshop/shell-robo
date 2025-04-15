@@ -35,3 +35,17 @@ validate $? "$(echo -e $Y 'enabling nginx service:' $N)"
 systemctl start nginx &>> $LOGFILE
 validate $? "$(echo -e $Y 'starting nginx service:' $N)"
 
+rm -rf /usr/share/nginx/html/* &>>$LOGFILE
+validate $? "$(echo -e $Y 'removing default content of nginx:' $N)"
+
+curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip &>>$LOGFILE
+validate $? "$( echo -e $Y 'Download the frontend content:' $N)"
+
+cd /usr/share/nginx/html; unzip /tmp/web.zip &>>$LOGFILE
+validate $? "$( echo -e $Y 'Extracting frontend content:' $N)"
+
+cp /root/roboshop/roboshop.conf /etc/nginx/default.d/
+validate $? "$( echo -e $Y 'Copying roboshop.conf file:' $N)"
+
+systemctl restart nginx
+validate $? "$(echo -e $Y 'restarting nginx service:' $N)"
