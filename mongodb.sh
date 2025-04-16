@@ -28,7 +28,7 @@ else
    exit 1
 fi
 
-cp /root/roboshop/mongodb-org-7.0.repo  /etc/yum.repos.d/ &>> $LOGFILE
+cp /root/office-practice/mongodb-org-7.0.repo  /etc/yum.repos.d/ &>> $LOGFILE
 validate $? "$(echo $Y 'Copying mongodb repo:' $N)"
 
 yum update &>> $LOGFILE; yum install mongodb-org -y  &>> $LOGFILE

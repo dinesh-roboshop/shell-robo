@@ -68,7 +68,7 @@ validate $? "$(echo -e $Y 'Switching to /app directory:' $N)"
 npm install &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing dependencies:' $N)"
 
-cp /root/roboshop/catalogue.service  /etc/systemd/system/ &>> $LOGFILE
+cp /root/office-practice/catalogue.service  /etc/systemd/system/ &>> $LOGFILE
 validate $? "$(echo -e $Y 'Creatomg catalogue systemd file:' $N)"
 
 systemctl daemon-reload &>> $LOGFILE
