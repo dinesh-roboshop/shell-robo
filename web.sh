@@ -15,6 +15,7 @@ validate () {
    echo -e $G " $2 SUCCESS " $N
  else
    echo -e $R " $2 FAILED " $N
+   exit 1
  fi 
 }
 echo -e  $Y "##### This script will install and configure nginx #####" $N
@@ -44,8 +45,8 @@ validate $? "$( echo -e $Y 'Download the frontend content:' $N)"
 cd /usr/share/nginx/html; unzip /tmp/web.zip &>>$LOGFILE
 validate $? "$( echo -e $Y 'Extracting frontend content:' $N)"
 
-cp /root/roboshop/roboshop.conf /etc/nginx/default.d/
+cp /root/office-practice/roboshop.conf /etc/nginx/default.d/  &>>$LOGFILE
 validate $? "$( echo -e $Y 'Copying roboshop.conf file:' $N)"
 
-systemctl restart nginx
+systemctl restart nginx     &>>$LOGFILE
 validate $? "$(echo -e $Y 'restarting nginx service:' $N)"
