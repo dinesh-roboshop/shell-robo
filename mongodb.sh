@@ -40,3 +40,11 @@ validate $? "$(echo $Y 'Enabling mongodb:' $N)"
 systemctl start mongod  &>> $LOGFILE
 validate $? "$(echo $Y 'Starting mongodb:' $N)"
 
+cp /etc/mongod.conf /etc/mongod-$TIMESTAMP.bkp &>> $LOGFILE
+validate $? "$(echo -e  $Y 'Copying /etc/mongod file:' $N)"
+
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>> $LOGFILE
+validate $? "$(echo -e $Y 'Changing configuration file:' $N)"
+
+systemctl restart mongod  &>> $LOGFILE
+validate $? "$(echo $Y 'restarting mongodb:' $N)"
