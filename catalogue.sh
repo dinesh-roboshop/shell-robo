@@ -5,6 +5,7 @@ G="\e[32m"
 Y="\e[33m"
 B="\e[34m"
 N="\e[0m"
+MONGO_HOST=13.218.81.249
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
@@ -80,5 +81,5 @@ validate $? "$(echo -e $Y 'Enabling catalogue service:' $N)"
 systemctl start catalogue &>> $LOGFILE
 validate $? "$(echo -e $Y 'Starting catalogue service:' $N)"
 
-mongosh --host $hostname --file /app/schema/catalogue.js
+mongosh --host $MONGO_HOST --file /app/schema/catalogue.js
 validate $? "$(echo -e $Y 'Loading schema:' $N)"
