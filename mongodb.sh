@@ -48,3 +48,6 @@ validate $? "$(echo -e $Y 'Changing configuration file:' $N)"
 
 systemctl restart mongod  &>> $LOGFILE
 validate $? "$(echo $Y 'restarting mongodb:' $N)"
+
+
+echo -e $R "############################ ADD CATALOGUE SERVER IP IN catalogue.service AND catalogue.sh FILES BEFORE EXECUTING CATALOGUE SCRIPT #########################################" $N
