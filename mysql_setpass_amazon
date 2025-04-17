@@ -1,0 +1,15 @@
+systemctl stop mysqld
+su -s /bin/bash mysql -c "/usr/sbin/mysqld --skip-grant-tables --skip-networking" &
+
+In another terminal execute
+
+mysql
+
+UPDATE mysql.user SET authentication_string=PASSWORD('RoboShop@1') WHERE User='root' AND Host='localhost';
+FLUSH PRIVILEGES;
+EXIT;
+
+killall mysqld
+systemctl start mysqld
+mysql -uroot -pRoboShop@1
+

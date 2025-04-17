@@ -6,23 +6,23 @@ Y="\e[33m"
 B="\e[34m"
 N="\e[0m"
 MONGO_HOST=13.218.81.249
-COMPONENT=user
+COMPONENT=cart
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
 
 
 if [ $(id -u) -eq 0 ]
-then 
+then
   echo -e $Y "You are root user. Proceeding with installation" $N
 else
   echo -e $R "You are NOT ROOT USER. Please login as ROOT to proceed with installation" $N
   exit 1
 fi
 
-validate ( ) { 
-  if [ $1 -eq 0 ]  
-  then 
+validate ( ) {
+  if [ $1 -eq 0 ]
+  then
     echo -e $2 $G "SUCCESS" $N
   else
     echo -e $2 $R  "FAILED" $N
@@ -44,5 +44,4 @@ validate $? "$(echo -e $Y 'Installing dependencies:' $N)"
 
 service_configure
 
-mongosh --host $MONGO_HOST --file /app/schema/user.js
-validate $? "$(echo -e $Y 'Loading schema:' $N)"
+

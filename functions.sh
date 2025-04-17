@@ -23,15 +23,31 @@ else
 fi
 
 curl -o /tmp/$COMPONENT.zip https://roboshop-builds.s3.amazonaws.com/$COMPONENT.zip  &>> $LOGFILE
-validate $? "$(echo -e $Y 'Downloading user code:' $N)"
+validate $? "$(echo -e $Y 'Downloading $COMPONENT code:' $N)"
 
 cd /app &>> $LOGFILE
 validate $? "$(echo -e $Y 'Switching to /app directory:' $N)"
 
-unzip /tmp/user.zip &>> $LOGFILE
+unzip /tmp/$COMPONENT.zip &>> $LOGFILE
 validate $? "$(echo -e $Y 'Extracting code to /tmp:' $N)"
 
 cd /app &>> $LOGFILE
 validate $? "$(echo -e $Y 'Switching to /app directory:' $N)"
 
 } 
+
+service_configure ( ) {
+
+cp /root/office-practice/$COMPONENT.service  /etc/systemd/system/ &>> $LOGFILE
+validate $? "$(echo -e $Y 'Creatomg $COMPONENT systemd file:' $N)"
+
+systemctl daemon-reload &>> $LOGFILE
+validate $? "$(echo -e $Y 'Reloading systemd:' $N)"
+
+systemctl enable $COMPONENT  &>> $LOGFILE
+validate $? "$(echo -e $Y 'Enabling $COMPONENT  service:' $N)"
+
+systemctl start $COMPONENT &>> $LOGFILE
+validate $? "$(echo -e $Y 'Starting $COMPONENT  service:' $N)"
+
+}
