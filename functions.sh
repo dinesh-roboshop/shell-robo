@@ -1,5 +1,6 @@
 #!/bin/bash
 
+############################### configuring application function ###########################################
 app_configure ( ) {
 
 id roboshop &>> $LOGFILE
@@ -36,6 +37,7 @@ validate $? "$(echo -e $Y 'Switching to /app directory:' $N)"
 
 } 
 
+############################## configuring service function #############################################
 service_configure ( ) {
 
 cp /root/office-practice/$COMPONENT.service  /etc/systemd/system/ &>> $LOGFILE
@@ -51,3 +53,18 @@ systemctl start $COMPONENT &>> $LOGFILE
 validate $? "$(echo -e $Y 'Starting   service:' $N)"
 
 }
+
+################################ Check root user function ##########################################
+
+check_root_user ( ) {
+if [ $(id -u) -eq 0 ]
+then
+  echo -e $Y "You are root user. Proceeding with installation" $N
+else
+  echo -e $R "You are NOT ROOT USER. Please login as ROOT to proceed with installation" $N
+  exit 1
+fi
+
+}
+
+

@@ -12,13 +12,6 @@ TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
 
 
-if [ $(id -u) -eq 0 ]
-then
-  echo -e $Y "You are root user. Proceeding with installation" $N
-else
-  echo -e $R "You are NOT ROOT USER. Please login as ROOT to proceed with installation" $N
-  exit 1
-fi
 
 validate ( ) {
   if [ $1 -eq 0 ]
@@ -32,6 +25,7 @@ validate ( ) {
 }
 
 source ./functions.sh
+check_root_user
 
 dnf install maven -y &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing maven:' $N)"
