@@ -5,7 +5,7 @@ G="\e[32m"
 Y="\e[33m"
 B="\e[34m"
 N="\e[0m"
-MONGO_HOST=mongodb.dineshdevops.shop
+MONGO_HOST=34.201.107.64
 COMPONENT=catalogue
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
