@@ -27,7 +27,14 @@ source ./functions.sh
 check_root_user
 
 
-yum install nodejs -y &>> $LOGFILE
+
+dnf module disable nodejs -y &>> $LOGFILE
+validate $? "$(echo -e $Y 'Disabling nodejs:' $N)"
+
+dnf module enable nodejs:18 -y &>> $LOGFILE
+validate $? "$(echo -e $Y 'Enabling nodejs18:' $N)"
+
+dnf install nodejs -y &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing Nodejs:' $N)"
 
 ## calling app_configure function
