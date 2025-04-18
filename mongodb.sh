@@ -23,10 +23,10 @@ fi
 source ./functions.sh
 check_root_user
 
-cp /root/office-practice/mongodb-org-7.0.repo  /etc/yum.repos.d/ &>> $LOGFILE
+cp /root/office-practice/mongo.repo  /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 validate $? "$(echo $Y 'Copying mongodb repo:' $N)"
 
-yum update &>> $LOGFILE; yum install mongodb-org -y  &>> $LOGFILE
+yum install mongodb-org -y  &>> $LOGFILE
 validate $? "$(echo $Y 'Installing mongodb:' $N)" 
 
 systemctl enable mongod &>> $LOGFILE
