@@ -5,7 +5,7 @@ G="\e[32m"
 Y="\e[33m"
 B="\e[34m"
 N="\e[0m"
-MONGO_HOST=13.218.81.249
+MONGO_HOST=mongodb.dineshdevops.shop
 COMPONENT=user
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
@@ -26,9 +26,14 @@ source ./functions.sh
 
 check_root_user
 
-yum install nodejs -y &>> $LOGFILE
+dnf module disable nodejs -y &>> $LOGFILE
+validate $? "$(echo -e $Y 'Disabling nodejs:' $N)"
+
+dnf module enable nodejs:18 -y &>> $LOGFILE
+validate $? "$(echo -e $Y 'Enabling nodejs18:' $N)"
+
+dnf install nodejs -y &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing Nodejs:' $N)"
-## calling app_configure function
 
 app_configure
 
@@ -37,5 +42,13 @@ validate $? "$(echo -e $Y 'Installing dependencies:' $N)"
 
 service_configure
 
-mongosh --host $MONGO_HOST --file /app/schema/user.js
+cp /root/office-practice/mongo.repo /etc/yum.repos.d/mongo.repo  &>> $LOGFILE
+validate $? "$(echo -e $Y 'Copying mongo client repo:' $N)"
+
+dnf install mongodb-org-shell -y  &>> $LOGFILE
+validate $? "$(echo $Y 'Installing mongodb client shell:' $N)"
+
+mongo --host $MONGO_HOST </app/schema/catalogue.js &>> $LOGFILE
 validate $? "$(echo -e $Y 'Loading schema:' $N)"
+
+
