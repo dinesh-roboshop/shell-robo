@@ -24,7 +24,7 @@ source ./functions.sh
 
 check_root_user
 
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>> $LOGFILE
+dnf install https://rpms.remirepo.net/enterprise/remi-release-8.4.rpm -y &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing redis repository:' $N)"
 
 dnf module enable redis:remi-6.2 -y &>> $LOGFILE
@@ -33,7 +33,7 @@ validate $? "$(echo -e $Y 'Enabling redis 6.2 from package stream:' $N)"
 dnf install -y redis &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing redis package:' $N)"
 
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis6/redis6.conf  &>> $LOGFILE
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf  &>> $LOGFILE
 validate $? "$(echo -e $Y 'Modifying redis configuration file:' $N)"
 
 systemctl enable redis  &>> $LOGFILE
