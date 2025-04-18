@@ -37,5 +37,11 @@ validate $? "$(echo -e $Y 'Installing dependencies:' $N)"
 
 service_configure
 
+cp /root/office-practice/mongodb-org-7.0.repo /etc/yum.repos.d/  &>> $LOGFILE
+validate $? "$(echo -e $Y 'Copying mongo client repo:' $N)"
+
+yum update &>> $LOGFILE; yum install mongodb-org -y  &>> $LOGFILE
+validate $? "$(echo $Y 'Installing mongodb client shell:' $N)"
+
 mongosh --host $MONGO_HOST --file /app/schema/catalogue.js
 validate $? "$(echo -e $Y 'Loading schema:' $N)"
