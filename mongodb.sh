@@ -20,13 +20,8 @@ fi
 
 }
 
-if [ $(id -u) -eq 0 ]
-then
-  echo -e $Y "You are logged in as root user. proceeding with configuration" $N
-else
-   echo -e $R "Please login as root user to proceed with installatiojn" $N
-   exit 1
-fi
+source ./functions.sh
+check_root_user
 
 cp /root/office-practice/mongodb-org-7.0.repo  /etc/yum.repos.d/ &>> $LOGFILE
 validate $? "$(echo $Y 'Copying mongodb repo:' $N)"

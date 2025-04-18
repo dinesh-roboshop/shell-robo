@@ -18,14 +18,9 @@ validate () {
    exit 1
  fi 
 }
-echo -e  $Y "##### This script will install and configure nginx #####" $N
-if [ $(id -u) -ne 0 ]
-then
-	echo $R "You are not root user. Please login as root and execute the script" $N
-	exit 1
-else
-	echo -e $Y "you are root user. Proceeding with installation" $N
-fi
+
+source ./functions.sh
+check_root_user
 
 dnf install nginx -y &>> $LOGFILE
 validate $? "$(echo -e $Y 'nginx installation:' $N) " 
