@@ -48,7 +48,7 @@ validate $? "$(echo -e $Y 'Copying mongo client repo:' $N)"
 dnf install mongodb-org-shell -y  &>> $LOGFILE
 validate $? "$(echo $Y 'Installing mongodb client shell:' $N)"
 
-mongo --host $MONGO_HOST </app/schema/catalogue.js &>> $LOGFILE
+mongo --host $MONGO_HOST </app/schema/$COMPONENT.js &>> $LOGFILE
 validate $? "$(echo -e $Y 'Loading schema:' $N)"
 
 
