@@ -5,7 +5,7 @@ G="\e[32m"
 Y="\e[33m"
 B="\e[34m"
 N="\e[0m"
-MONGO_HOST=13.218.81.249
+MONGO_HOST=mongodb.dineshdevops.shop
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
@@ -25,29 +25,14 @@ source ./functions.sh
 check_root_user
 
 
-## primary RabbitMQ signing key
-rpm --import 'https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc' &>> $LOGFILE
-validate $? "$(echo -e $Y 'Importing primary RabbitMQ signing key :' $N)"
-## modern Erlang repository
-rpm --import 'https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-erlang.E495BB49CC4BBE5B.key' &>> $LOGFILE
-validate $? "$(echo -e $Y 'Importing moderen Erland repository :' $N)"
-## RabbitMQ server repository
-rpm --import 'https://github.com/rabbitmq/signing-keys/releases/download/3.0/cloudsmith.rabbitmq-server.9F4587F226208342.key' &>> $LOGFILE
-validate $? "$(echo -e $Y 'Importing RabbitMQ server repository :' $N)"
+curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash  &>> $LOGFILE
+validate $? "$(echo -e $Y 'configuring yum repo:' $N)"
 
-cp /root/office-practice/rabbitmq.repo /etc/yum.repos.d/ &>> $LOGFILE
-validate $? "$(echo -e $Y 'Copying rabbitmq.repo file:' $N)"
+curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>> $LOGFILE
+validate $? "$(echo -e $Y 'configuring rabbitmq repo file:' $N)"
 
-dnf update -y &>> $LOGFILE
-validate $? "$(echo -e $Y 'Updating yum:' $N)"
-
-## install these dependencies from standard OS repositories
-dnf install -y logrotate &>> $LOGFILE
-validate $? "$(echo -e $Y 'Install these dependencies from standard OS repositories:' $N)"
-
-## install RabbitMQ and zero dependency Erlang
-dnf install -y erlang rabbitmq-server &>> $LOGFILE
-validate $? "$(echo -e $Y 'Install RabbitMQ and zero dependency Erlang:' $N)"
+dnf install rabbitmq-server -y &>> $LOGFILE
+validate $? "$(echo -e $Y 'Installing Rabbitmq:' $N)"
 
 systemctl enable rabbitmq-server &>> $LOGFILE
 validate $? "$(echo -e $Y 'Enabling rabbitmq service:' $N)"
