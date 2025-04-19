@@ -25,10 +25,18 @@ source ./functions.sh
 check_root_user
 
 
-dnf install https://dev.mysql.com/get/mysql57-community-release-el8-11.noarch.rpm -y  &>> $LOGFILE
-validate $? "$(echo -e $Y 'Installing mysal repo:' $N)"
+cp /root/office-practice/mysql.repo /etc/yum.repos.d/mysql.repo &>> $LOGFILE
+validate $? "$(echo -e $Y 'Copying mysql repo:' $N)"
 
-dnf install mysql-community-server -y &>> $LOGFILE
+dnf module disable mysql -y &>> $LOGFILE
+validate $? "$(echo -e $Y 'disabling mysql repo:' $N)"
+
+
+dnf clean all &>> $LOGFILE
+dnf makecache &>> $LOGFILE
+
+
+dnf install mysql-community-server -y  &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing mysql server:' $N)"
 
 systemctl enable mysqld &>> $LOGFILE
