@@ -5,7 +5,7 @@ G="\e[32m"
 Y="\e[33m"
 B="\e[34m"
 N="\e[0m"
-MONGO_HOST=13.218.81.249
+MONGO_HOST=mongodb.dineshdevops.shop
 COMPONENT=shipping
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
@@ -43,7 +43,7 @@ service_configure
 dnf install mysql -y &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing mysql client:' $N)"
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE
+mysql -h mysql.dineshdevops.shop -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE
 validate $? "$(echo -e $Y 'Loading schema:' $N)"
 
 systemctl restart shipping &>> $LOGFILE
