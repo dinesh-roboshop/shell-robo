@@ -10,7 +10,7 @@ MONGO_HOST=mongodb.dineshdevops.shop
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
 
-
+validate ( ) {
   if [ $1 -eq 0 ]
   then
     echo -e $2 $G "SUCCESS" $N
