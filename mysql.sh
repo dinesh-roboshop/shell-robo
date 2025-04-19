@@ -48,6 +48,6 @@ validate $? "$(echo -e $Y 'Starting mysql service:' $N)"
 mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOGFILE
 validate $? "$(echo -e $Y 'Changing default ROOT password to start db:' $N)"
 
-mysql -uroot -pRoboShop@1 &>> $LOGFILE
-validate $? "$(echo -e $Y 'verifying mysql db:' $N)"
+#mysql -uroot -pRoboShop@1 &>> $LOGFILE
+#validate $? "$(echo -e $Y 'verifying mysql db:' $N)"
 
