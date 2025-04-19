@@ -27,12 +27,12 @@ validate ( ) {
 source ./functions.sh
 check_root_user
 
-dnf install python3 python3-pip gcc python3-devel -y &>> $LOGFILE
+dnf install python36 gcc python3-devel -y &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing python3, gcc and python3-devel packages:' $N)"
 
 app_configure
 
-pip3 install -r requirements.txt &>> $LOGFILE
+pip3.6 install -r requirements.txt &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing python requirments:' $N)"
 
 service_configure
