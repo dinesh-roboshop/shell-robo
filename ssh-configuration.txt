@@ -1,0 +1,15 @@
+SSH connecting issue to github
+--------------------------
+
+chmod 600 ~/.ssh/id_rsa_work
+chmod 644 ~/.ssh/id_rsa_work.pub
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa_work
+ssh-add -l
+Make sure your ~/.ssh/config file has the right configuration. Example:
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_rsa_office
+ssh -T git@github.com
+git clone #############
