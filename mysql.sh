@@ -25,8 +25,8 @@ source ./functions.sh
 check_root_user
 
 
-cp /root/office-practice/mysql.repo /etc/yum.repos.d/ &>> $LOGFILE
-validate $? "$(echo -e $Y 'Copying mysal repo:' $N)"
+dnf install https://dev.mysql.com/get/mysql57-community-release-el8-11.noarch.rpm -y  &>> $LOGFILE
+validate $? "$(echo -e $Y 'Installing mysal repo:' $N)"
 
 dnf install mysql-community-server -y &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing mysql server:' $N)"
