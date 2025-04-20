@@ -8,6 +8,7 @@ N="\e[0m"
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
+LOCATION="/root/shell-robo"
 
 validate ( ) {
   if [ $1 -eq 0 ]
@@ -25,7 +26,7 @@ source ./functions.sh
 check_root_user
 
 
-cp /root/office-practice/mysql.repo /etc/yum.repos.d/mysql.repo &>> $LOGFILE
+cp $LOCATION/mysql.repo /etc/yum.repos.d/mysql.repo &>> $LOGFILE
 validate $? "$(echo -e $Y 'Copying mysql repo:' $N)"
 
 dnf module disable mysql -y &>> $LOGFILE

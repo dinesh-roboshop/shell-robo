@@ -7,6 +7,7 @@ B="\e[34m"
 N="\e[0m"
 MONGO_HOST=mongodb.dineshdevops.shop
 COMPONENT=user
+LOCATION="/root/shell-robo"
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
@@ -42,7 +43,7 @@ validate $? "$(echo -e $Y 'Installing dependencies:' $N)"
 
 service_configure
 
-cp /root/office-practice/mongo.repo /etc/yum.repos.d/mongo.repo  &>> $LOGFILE
+cp $LOCATION/mongo.repo /etc/yum.repos.d/mongo.repo  &>> $LOGFILE
 validate $? "$(echo -e $Y 'Copying mongo client repo:' $N)"
 
 dnf install mongodb-org-shell -y  &>> $LOGFILE

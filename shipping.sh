@@ -7,6 +7,7 @@ B="\e[34m"
 N="\e[0m"
 MONGO_HOST=mongodb.dineshdevops.shop
 COMPONENT=shipping
+LOCATION="/root/shell-robo"
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
@@ -44,7 +45,7 @@ dnf install mysql -y &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing mysql client:' $N)"
 
 
-cp -rv /root/shell-robo/shcmema /app/ &>> $LOGFILE
+cp -rv $LOCATION/shcmema /app/ &>> $LOGFILE
 validate $? "$(echo -e $Y 'Copying shipping.sql file:' $N)"
 
 mysql -h mysql.dineshdevops.shop -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE

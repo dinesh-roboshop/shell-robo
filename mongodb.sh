@@ -8,6 +8,7 @@ N="\e[0m"
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
+LOCATION="/root/shell-robo"
 
 validate () {
 if [ $1 -eq 0 ]
@@ -23,7 +24,7 @@ fi
 source ./functions.sh
 check_root_user
 
-cp /root/office-practice/mongo.repo  /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+cp $LOCATION/mongo.repo  /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 validate $? "$(echo $Y 'Copying mongodb repo:' $N)"
 
 yum install mongodb-org -y  &>> $LOGFILE
@@ -45,4 +46,3 @@ systemctl restart mongod  &>> $LOGFILE
 validate $? "$(echo $Y 'restarting mongodb:' $N)"
 
 
-echo -e $R "############################ ADD CATALOGUE SERVER IP IN catalogue.service AND catalogue.sh FILES BEFORE EXECUTING CATALOGUE SCRIPT #########################################" $N

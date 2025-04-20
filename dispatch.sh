@@ -7,6 +7,7 @@ B="\e[34m"
 N="\e[0m"
 MONGO_HOST=mongodb.dineshdevops.shop
 COMPONENT=dispatch
+LOCATION="/root/shell-robo"
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"

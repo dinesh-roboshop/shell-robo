@@ -5,6 +5,7 @@ Y="\e[33m"
 B="\e[34m"
 N="\e[0m"
 TIMESTAMP=$(date +%F-%H-%M-%S)
+LOCATION="/root/shell-robo"
 
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
 
@@ -40,7 +41,7 @@ validate $? "$( echo -e $Y 'Download the frontend content:' $N)"
 cd /usr/share/nginx/html; unzip /tmp/web.zip &>>$LOGFILE
 validate $? "$( echo -e $Y 'Extracting frontend content:' $N)"
 
-cp /root/office-practice/roboshop.conf /etc/nginx/default.d/  &>>$LOGFILE
+cp $LOCATION/roboshop.conf /etc/nginx/default.d/  &>>$LOGFILE
 validate $? "$( echo -e $Y 'Copying roboshop.conf file:' $N)"
 
 systemctl restart nginx     &>>$LOGFILE

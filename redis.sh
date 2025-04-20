@@ -8,6 +8,7 @@ N="\e[0m"
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-TIMESTAMP.log"
+LOCATION="/root/shell-robo"
 
 
 validate ( ) {
@@ -34,7 +35,10 @@ dnf install -y redis &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing redis package:' $N)"
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf  &>> $LOGFILE
-validate $? "$(echo -e $Y 'Modifying redis configuration file:' $N)"
+validate $? "$(echo -e $Y 'Modifying redis configuration file /etc/redis.conf:' $N)"
+
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf  &>> $LOGFILE
+validate $? "$(echo -e $Y 'Modifying redis configuration file/etc/redis/redis.conf:' $N)"
 
 systemctl enable redis  &>> $LOGFILE
 validate $? "$(echo -e $Y 'Enabling redis service:' $N)"

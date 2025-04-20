@@ -7,6 +7,7 @@ B="\e[34m"
 N="\e[0m"
 MONGO_HOST=13.218.81.249
 COMPONENT=payment
+LOCATION="/root/shell-robo"
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
