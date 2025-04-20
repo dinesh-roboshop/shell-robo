@@ -40,7 +40,7 @@ validate $? "$(echo -e $Y 'Switching to /app directory:' $N)"
 ############################## configuring service function #############################################
 service_configure ( ) {
 
-cp /root/office-practice/$COMPONENT.service  /etc/systemd/system/ &>> $LOGFILE
+cp $PWD/$COMPONENT.service  /etc/systemd/system/ &>> $LOGFILE
 validate $? "$(echo -e $Y 'Creatomg  systemd file:' $N)"
 
 systemctl daemon-reload &>> $LOGFILE

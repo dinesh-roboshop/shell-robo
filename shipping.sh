@@ -43,6 +43,10 @@ service_configure
 dnf install mysql -y &>> $LOGFILE
 validate $? "$(echo -e $Y 'Installing mysql client:' $N)"
 
+
+cp -rv /root/shell-robo/shcmema /app/ &>> $LOGFILE
+validate $? "$(echo -e $Y 'Copying shipping.sql file:' $N)"
+
 mysql -h mysql.dineshdevops.shop -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE
 validate $? "$(echo -e $Y 'Loading schema:' $N)"
 
